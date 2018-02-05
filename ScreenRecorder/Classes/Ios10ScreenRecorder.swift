@@ -14,12 +14,9 @@ internal final class Ios10ScreenRecorder {
 	public static let shared = Ios10ScreenRecorder()
 
 	fileprivate(set) var isRecording = false
-
-	// if saveURL is nil, video will be saved into camera roll
-	// this property can not be changed whilst recording is in progress
 	fileprivate var videoURL: URL!
 
-	// windows added to this array will not be recorded by the recorder
+	// Windows added to this array will not be recorded by the recorder
 	// convenient if there is a window containing the Start/Stop buttons
 	// that you do not wish to include in the video
 	fileprivate var escapeWindows: [UIWindow] = []
@@ -149,7 +146,7 @@ internal final class Ios10ScreenRecorder {
 			var unmanagedPixelBuffer: CVPixelBuffer? = nil
 			let bitmapContext = self.createPixelBufferAndBitmapContext(pixelBuffer: &unmanagedPixelBuffer)
 
-			// draw each window into the context (other windows include UIKeyboard, UIAlert)
+			// Draw each window into the context (other windows include UIKeyboard, UIAlert)
 			// FIX: UIKeyboard is currently only rendered correctly in portrait orientation
 			DispatchQueue.main.sync {
 				UIGraphicsPushContext(bitmapContext)
@@ -159,7 +156,7 @@ internal final class Ios10ScreenRecorder {
 				UIGraphicsPopContext()
 			}
 
-			// append pixelBuffer on a async dispatch_queue, the next frame is rendered whilst this one appends
+			// Append pixelBuffer on a async dispatch_queue, the next frame is rendered whilst this one appends
 			// must not overwhelm the queue with pixelBuffers, therefore:
 			// check if _append_pixelBuffer_queue is ready
 			// if it’s not ready, release pixelBuffer and bitmapContext

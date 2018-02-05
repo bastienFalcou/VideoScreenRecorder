@@ -14,7 +14,7 @@ final class ViewController: UIViewController {
 	@IBOutlet fileprivate var tableView: UITableView!
 	@IBOutlet fileprivate var descriptionLabel: UILabel!
 
-	fileprivate let viewOverlay = StopVideoRecordingWindow()
+	fileprivate let stopButtonWindow = StopVideoRecordingWindow()
 
 	fileprivate var timer: Timer?
 	fileprivate let timerTimeInterval: TimeInterval = 0.1
@@ -24,8 +24,10 @@ final class ViewController: UIViewController {
 
 		self.tableView.reloadData()
 
-		self.viewOverlay.onStopClick = {
-			self.viewOverlay.hide {
+		// On stop button tapped, the stop button window is hidden and we can stop recording the video.
+		// 'stopRecording' can be called with a callback notably returning the URL and error if needed.
+		self.stopButtonWindow.onStopClick = {
+			self.stopButtonWindow.hide {
 				ScreenRecorder.shared.stopRecording()
 			}
 		}
@@ -33,10 +35,15 @@ final class ViewController: UIViewController {
 
 	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
 		if let event = event, event.subtype == .motionShake {
-			self.viewOverlay.show()
+			// Show stop button overlay window added to hierarchy, will be seen throughout the application until hidden
+			self.stopButtonWindow.show()
 			self.timer = Timer.scheduledTimer(timeInterval: self.timerTimeInterval, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
 
-			ScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.viewOverlay.overlayWindow]) { [weak self] error, url in
+			// Start recording, the framework will internally choose the most appropriate method to record the video. If iOS 11+ will relly on
+			// ReplayKit, if prior version will take a batch of screenshots and use them to encode the video.
+			// The callback is called as soon as there is an error (possibly immerdiately after start recording attempt), or when the record
+			// completes successfully otherwise.
+			ScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.stopButtonWindow.overlayWindow]) { [weak self] error, url in
 				DispatchQueue.main.async {
 					if let error = error {
 						self?.present(error: error)
@@ -79,6 +86,8 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let videoURL = ReplayFileCoordinator.shared.allReplays[indexPath.row]
+
+		// Build and display the video with AVPlayer
 		let player = AVPlayer(url: videoURL)
 		let playerViewController = AVPlayerViewController()
 		playerViewController.player = player
