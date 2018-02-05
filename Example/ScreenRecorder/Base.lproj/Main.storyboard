@@ -68,6 +68,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Screen Recorder" id="r5V-BT-n66"/>
                     <connections>
+                        <outlet property="descriptionLabel" destination="MWq-lA-6sg" id="xys-FJ-7ir"/>
                         <outlet property="tableView" destination="tJh-ZF-sTn" id="6kM-z0-ADo"/>
                     </connections>
                 </viewController>

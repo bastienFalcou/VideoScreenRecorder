@@ -57,7 +57,7 @@ internal final class StopVideoRecordingWindow {
 	func hide(completion: (() -> Void)? = nil) {
 		DispatchQueue.main.async {
 			UIView.animate(withDuration: 0.15, animations: {
-				self.stopButton.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+				self.overlayWindow.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
 				self.overlayWindow.alpha = 0.0
 			}, completion: { _ in
 				self.overlayWindow.isHidden = true

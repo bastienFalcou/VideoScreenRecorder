@@ -12,8 +12,12 @@ import ScreenRecorder
 
 final class ViewController: UIViewController {
 	@IBOutlet fileprivate var tableView: UITableView!
+	@IBOutlet fileprivate var descriptionLabel: UILabel!
 
 	fileprivate let viewOverlay = StopVideoRecordingWindow()
+
+	fileprivate var timer: Timer?
+	fileprivate let timerTimeInterval: TimeInterval = 0.1
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -30,12 +34,35 @@ final class ViewController: UIViewController {
 	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
 		if let event = event, event.subtype == .motionShake {
 			self.viewOverlay.show()
+			self.timer = Timer.scheduledTimer(timeInterval: self.timerTimeInterval, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+
 			ScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.viewOverlay.overlayWindow]) { [weak self] error, url in
 				DispatchQueue.main.async {
+					if let error = error {
+						self?.present(error: error)
+					}
+					self?.timer?.invalidate()
 					self?.tableView.reloadData()
+					self?.descriptionLabel.text = "Shake your device to start recording..."
 				}
 			}
 		}
+	}
+
+	fileprivate func present(error: Error) {
+		let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+		let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+		alertController.addAction(okAction)
+		self.present(alertController, animated: true, completion: nil)
+	}
+
+	@objc fileprivate func updateTimer() {
+		let seconds = TimeInterval(self.descriptionLabel.text ?? "0.0") ?? 0.0
+		self.descriptionLabel.text = "\(seconds + self.timerTimeInterval)"
+	}
+
+	deinit {
+		self.timer?.invalidate()
 	}
 }
 
