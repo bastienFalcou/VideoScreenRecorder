@@ -66,7 +66,18 @@
                             <constraint firstAttribute="trailing" secondItem="tJh-ZF-sTn" secondAttribute="trailing" id="xuv-pR-6BQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Screen Recorder" id="r5V-BT-n66"/>
+                    <navigationItem key="navigationItem" title="Screen Recorder" id="r5V-BT-n66">
+                        <barButtonItem key="leftBarButtonItem" title="Show Blue" id="VmT-LK-iwi">
+                            <connections>
+                                <segue destination="7g1-z4-Mnl" kind="show" id="02K-hQ-rFF"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Show Green" id="5gD-5i-Ts2">
+                            <connections>
+                                <segue destination="rSi-gK-n3j" kind="show" id="q7N-Sb-DwM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="descriptionLabel" destination="MWq-lA-6sg" id="xys-FJ-7ir"/>
                         <outlet property="tableView" destination="tJh-ZF-sTn" id="6kM-z0-ADo"/>
@@ -75,6 +86,72 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="476" y="133.5832083958021"/>
+        </scene>
+        <!--Test Green View Controller-->
+        <scene sceneID="efT-8g-tOQ">
+            <objects>
+                <viewController title="Test Green View Controller" id="rSi-gK-n3j" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nso-lO-SMc"/>
+                        <viewControllerLayoutGuide type="bottom" id="xqc-5T-ueb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="gjK-RO-Leh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgt-qX-Gu3">
+                                <rect key="frame" x="20" y="323" width="335" height="21"/>
+                                <string key="text">This View Controller proves that it is possible to push view controllers while keeping the "Stop" red button, and still recording.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.58015645674843841" green="0.88833726811370561" blue="0.33855355079609128" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="cgt-qX-Gu3" secondAttribute="trailing" constant="20" id="2yh-j3-xSB"/>
+                            <constraint firstItem="cgt-qX-Gu3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gjK-RO-Leh" secondAttribute="leading" constant="20" id="tcQ-WQ-z5G"/>
+                            <constraint firstItem="cgt-qX-Gu3" firstAttribute="centerY" secondItem="gjK-RO-Leh" secondAttribute="centerY" id="ufT-Gr-rVW"/>
+                            <constraint firstItem="cgt-qX-Gu3" firstAttribute="centerX" secondItem="gjK-RO-Leh" secondAttribute="centerX" id="wUE-Ze-nsX"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ggv-FM-vHN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1454" y="-246"/>
+        </scene>
+        <!--Test Blue View Controller-->
+        <scene sceneID="pAq-hf-ppg">
+            <objects>
+                <viewController title="Test Blue View Controller" id="7g1-z4-Mnl" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K07-1J-f7I"/>
+                        <viewControllerLayoutGuide type="bottom" id="Plk-0N-bOP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BbE-OZ-dhF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LtG-7d-FWn">
+                                <rect key="frame" x="20" y="323" width="335" height="21"/>
+                                <string key="text">This View Controller proves that it is possible to push view controllers while keeping the "Stop" red button, and still recording.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.23009039023574951" green="0.48398381329387719" blue="0.8499563769035533" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="LtG-7d-FWn" firstAttribute="centerX" secondItem="BbE-OZ-dhF" secondAttribute="centerX" id="HPe-Gu-BUB"/>
+                            <constraint firstItem="LtG-7d-FWn" firstAttribute="centerY" secondItem="BbE-OZ-dhF" secondAttribute="centerY" id="oiX-ax-d3R"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="LtG-7d-FWn" secondAttribute="trailing" constant="20" id="pKl-iL-mLh"/>
+                            <constraint firstItem="LtG-7d-FWn" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="BbE-OZ-dhF" secondAttribute="leading" constant="20" id="xcg-KN-EMC"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ezp-RG-WFq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1454" y="499"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wZs-lA-7yy">
