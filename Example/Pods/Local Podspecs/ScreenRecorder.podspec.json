@@ -1,0 +1,22 @@
+{
+  "name": "ScreenRecorder",
+  "version": "0.1.0",
+  "summary": "A short description of ScreenRecorder.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/bastien.falcou@hotmail.com/ScreenRecorder",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "bastien.falcou@hotmail.com": "bastien@fueled.com"
+  },
+  "source": {
+    "git": "https://github.com/bastien.falcou@hotmail.com/ScreenRecorder.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "ScreenRecorder/Classes/**/*"
+}

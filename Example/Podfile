@@ -2,10 +2,4 @@ use_frameworks!
 
 target 'ScreenRecorder_Example' do
   pod 'ScreenRecorder', :path => '../'
-
-  target 'ScreenRecorder_Tests' do
-    inherit! :search_paths
-
-    
-  end
 end

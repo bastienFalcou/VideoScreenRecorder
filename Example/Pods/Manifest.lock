@@ -1,0 +1,16 @@
+PODS:
+  - ScreenRecorder (0.1.0)
+
+DEPENDENCIES:
+  - ScreenRecorder (from `../`)
+
+EXTERNAL SOURCES:
+  ScreenRecorder:
+    :path: ../
+
+SPEC CHECKSUMS:
+  ScreenRecorder: 38471ccbe53b24bfdeee6bc8e079a659827c8a69
+
+PODFILE CHECKSUM: 53d2350208364b6c015ac9800c276c0bbf040b5a
+
+COCOAPODS: 1.3.1
