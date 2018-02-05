@@ -13,7 +13,7 @@ import ScreenRecorder
 final class ViewController: UIViewController {
 	@IBOutlet fileprivate var tableView: UITableView!
 
-	fileprivate let viewOverlay = VideoControlsWindow()
+	fileprivate let viewOverlay = StopVideoRecordingWindow()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
