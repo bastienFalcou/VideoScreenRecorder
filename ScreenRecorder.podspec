@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'ScreenRecorder'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of ScreenRecorder.'
+  s.summary          = 'Record video of your screen and save the file locally.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,10 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+ScreenRecorder can record a video of your screen and save the output file locally on any iOS version:
+- Record video of your screen on any iOS version
+- Save video locally and consult previous videos for further reuse (upload video to server, see video on the phone, etc.)
+- Easily create your "stop recording" button that although seen on screen, will not be recorded in the video
                        DESC
 
   s.homepage         = 'https://github.com/bastien.falcou@hotmail.com/ScreenRecorder'
@@ -28,7 +31,7 @@ TODO: Add long description of the pod here.
   s.source           = { :git => 'https://github.com/bastien.falcou@hotmail.com/ScreenRecorder.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.3'
 
   s.source_files = 'ScreenRecorder/Classes/**/*'
   
