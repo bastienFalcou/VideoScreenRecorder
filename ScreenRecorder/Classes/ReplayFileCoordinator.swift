@@ -34,7 +34,7 @@ public struct ReplayFileCoordinator {
 		return filePath
 	}
 
-	static func fetchAllReplays() -> [URL] {
+	static var allReplays: [URL] {
 		let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
 		let replayPath = documentsDirectory?.appendingPathComponent("/Replays")
 		let directoryContents = try! FileManager.default.contentsOfDirectory(at: replayPath!, includingPropertiesForKeys: nil, options: [])
