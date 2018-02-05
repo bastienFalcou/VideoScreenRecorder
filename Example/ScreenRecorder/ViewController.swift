@@ -8,17 +8,35 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class ViewController: UIViewController {
+	@IBOutlet fileprivate var tableView: UITableView!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
+	override func viewDidLoad() {
+		super.viewDidLoad()
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+		self.tableView.reloadData()
+	}
 }
 
+extension ViewController: UITableViewDataSource, UITableViewDelegate {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return ScreenRecordCoordinator.shared.listAllReplays.count
+	}
+
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "previewCellReuseIdentifier", for: indexPath)
+		cell.textLabel?.text = ScreenRecordCoordinator.shared.listAllReplays[indexPath.row].lastPathComponent
+		return cell
+	}
+
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let videoURL = ScreenRecordCoordinator.shared.listAllReplays[indexPath.row]
+		let player = AVPlayer(url: videoURL)
+		let playerViewController = AVPlayerViewController()
+		playerViewController.player = player
+		self.present(playerViewController, animated: true) {
+			playerViewController.player!.play()
+		}
+	}
+}
+}
