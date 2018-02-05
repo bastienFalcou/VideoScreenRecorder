@@ -1,6 +1,6 @@
 //
 //  ScreenRecorderError.swift
-//  Pods-ScreenRecorder_Example
+//  ScreenRecorder
 //
 //  Created by Bastien Falcou on 2/5/18.
 //

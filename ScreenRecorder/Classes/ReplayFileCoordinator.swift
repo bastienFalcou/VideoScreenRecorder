@@ -10,7 +10,9 @@
 import Foundation
 
 public struct ReplayFileCoordinator {
-	static func createReplaysFolder() {
+	public static let shared = ReplayFileCoordinator()
+
+	private init() {
 		if let documentDirectoryPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first {
 			let replayDirectoryPath = documentDirectoryPath.appending("/Replays")
 			let fileManager = FileManager.default
@@ -26,15 +28,14 @@ public struct ReplayFileCoordinator {
 		}
 	}
 
-	static func filePath(_ fileName: String) -> String {
-		self.createReplaysFolder()
+	public func filePath(_ fileName: String) -> String {
 		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		let documentsDirectory = paths[0] as String
 		let filePath = "\(documentsDirectory)/Replays/\(fileName).mp4"
 		return filePath
 	}
 
-	static var allReplays: [URL] {
+	public var allReplays: [URL] {
 		let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
 		let replayPath = documentsDirectory?.appendingPathComponent("/Replays")
 		let directoryContents = try! FileManager.default.contentsOfDirectory(at: replayPath!, includingPropertiesForKeys: nil, options: [])

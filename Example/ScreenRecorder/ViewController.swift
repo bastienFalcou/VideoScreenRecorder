@@ -27,31 +27,31 @@ final class ViewController: UIViewController {
 		}
 	}
 
-
-
-	func startRecording(with fileName: String, completion: @escaping (Error?, URL?) -> Void) {
-		self.viewOverlay.show()
-		ScreenRecorder.shared.startRecording(with: fileName, windowsToSkip: [self.viewOverlay.overlayWindow], completion: completion)
-	}
-
-	func stopRecording() {
-
+	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+		if let event = event, event.subtype == .motionShake {
+			self.viewOverlay.show()
+			ScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.viewOverlay.overlayWindow]) { [weak self] error, url in
+				DispatchQueue.main.async {
+					self?.tableView.reloadData()
+				}
+			}
+		}
 	}
 }
 
 extension ViewController: UITableViewDataSource, UITableViewDelegate {
 	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return ReplayFileCoordinator.allReplays.count
+		return ReplayFileCoordinator.shared.allReplays.count
 	}
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "previewCellReuseIdentifier", for: indexPath)
-		cell.textLabel?.text = ReplayFileCoordinator.allReplays[indexPath.row].lastPathComponent
+		cell.textLabel?.text = ReplayFileCoordinator.shared.allReplays[indexPath.row].lastPathComponent
 		return cell
 	}
 
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		let videoURL = ReplayFileCoordinator.allReplays[indexPath.row]
+		let videoURL = ReplayFileCoordinator.shared.allReplays[indexPath.row]
 		let player = AVPlayer(url: videoURL)
 		let playerViewController = AVPlayerViewController()
 		playerViewController.player = player

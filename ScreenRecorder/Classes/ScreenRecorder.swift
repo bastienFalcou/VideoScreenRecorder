@@ -14,7 +14,7 @@ public final class ScreenRecorder {
 
 	private var completionBlock: ((Error?, URL?) -> Void)?
 
-	var isRecording: Bool {
+	public var isRecording: Bool {
 		if #available(iOS 11.0, *) {
 			return Ios11ScreenRecorder.shared.isRecording
 		} else {
@@ -22,7 +22,7 @@ public final class ScreenRecorder {
 		}
 	}
 
-	func startRecording(with fileName: String, windowsToSkip: [UIWindow]? = nil, completion: @escaping (Error?, URL?) -> Void) {
+	public func startRecording(with fileName: String, windowsToSkip: [UIWindow]? = nil, completion: @escaping (Error?, URL?) -> Void) {
 		self.completionBlock = completion
 		if #available(iOS 11.0, *) {
 			Ios11ScreenRecorder.shared.startRecording(with: fileName, escapeWindows: windowsToSkip, recordingHandler: completion)
@@ -31,7 +31,7 @@ public final class ScreenRecorder {
 		}
 	}
 
-	func stopRecording(handler: ((Error?, URL?) -> Void)? = nil) {
+	public func stopRecording(handler: ((Error?, URL?) -> Void)? = nil) {
 		if #available(iOS 11.0, *) {
 			Ios11ScreenRecorder.shared.stopRecording { error, url in
 				self.completionBlock?(error, url)

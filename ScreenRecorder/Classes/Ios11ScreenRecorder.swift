@@ -27,7 +27,7 @@ internal final class Ios11ScreenRecorder {
 			return recordingHandler(ScreenRecorderError.alreadyRecodingVideo, nil)
 		}
 
-		self.currentVideoURL = URL(fileURLWithPath: ReplayFileCoordinator.filePath(fileName))
+		self.currentVideoURL = URL(fileURLWithPath: ReplayFileCoordinator.shared.filePath(fileName))
 		self.assetWriter = try! AVAssetWriter(outputURL: self.currentVideoURL!, fileType: AVFileType.mp4)
 		let videoOutputSettings: [String: Any] = [
 			AVVideoCodecKey: AVVideoCodecType.h264,
@@ -86,7 +86,7 @@ internal final class Ios11ScreenRecorder {
 			self.isRecording = false
 			completion?(error, self.currentVideoURL)
 			self.assetWriter.finishWriting {
-				print(ReplayFileCoordinator.fetchAllReplays())
+				print(ReplayFileCoordinator.shared.allReplays)
 			}
 		}
 	}

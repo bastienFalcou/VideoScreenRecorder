@@ -88,7 +88,7 @@ internal final class Ios10ScreenRecorder {
 
 		CVPixelBufferPoolCreate(nil, nil, bufferAttributes as CFDictionary, &self.outputBufferPool)
 
-		self.videoURL = URL(fileURLWithPath: ReplayFileCoordinator.filePath(fileName))
+		self.videoURL = URL(fileURLWithPath: ReplayFileCoordinator.shared.filePath(fileName))
 		self.escapeWindows = escapeWindows ?? []
 
 		do {
