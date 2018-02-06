@@ -1,9 +1,9 @@
 {
   "name": "ScreenRecorder",
   "version": "0.1.0",
-  "summary": "A short description of ScreenRecorder.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/bastien.falcou@hotmail.com/ScreenRecorder",
+  "summary": "Record video of your screen and save the file locally.",
+  "description": "ScreenRecorder can record a video of your screen and save the output file locally on any iOS version:\n- Record video of your screen on any iOS version\n- Save video locally and consult previous videos for further reuse (upload video to server, see video on the phone, etc.)\n- Easily create your \"stop recording\" button that although seen on screen, will not be recorded in the video",
+  "homepage": "https://github.com/bastienFalcou/ScreenRecorder",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,11 +12,11 @@
     "bastien.falcou@hotmail.com": "bastien@fueled.com"
   },
   "source": {
-    "git": "https://github.com/bastien.falcou@hotmail.com/ScreenRecorder.git",
+    "git": "https://github.com/bastienFalcou/ScreenRecorder.git",
     "tag": "0.1.0"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.3"
   },
   "source_files": "ScreenRecorder/Classes/**/*"
 }

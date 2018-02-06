@@ -31,7 +31,7 @@ ScreenRecorder can record a video of your screen and save the output file locall
   s.source           = { :git => 'https://github.com/bastienFalcou/ScreenRecorder.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '9.3'
+  s.ios.deployment_target = '8.0'
 
   s.source_files = 'ScreenRecorder/Classes/**/*'
   
