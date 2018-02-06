@@ -2,7 +2,7 @@
 
 [![CI Status](http://img.shields.io/travis/bastien.falcou@hotmail.com/ScreenRecorder.svg?style=flat)](https://travis-ci.org/bastien.falcou@hotmail.com/ScreenRecorder)
 [![Version](https://img.shields.io/cocoapods/v/ScreenRecorder.svg?style=flat)](http://cocoapods.org/pods/ScreenRecorder)
-![Swift 3.0.x](https://img.shields.io/badge/Swift-3.0.x-orange.svg)
+![Swift 3.0.x](https://img.shields.io/badge/Swift-4.0.x-orange.svg)
 [![License](https://img.shields.io/cocoapods/l/ScreenRecorder.svg?style=flat)](http://cocoapods.org/pods/ScreenRecorder)
 
 ScreenRecorder can record a video of your screen and save the output file locally on any iOS version.
