@@ -7,7 +7,7 @@
 #
 
 Pod::Spec.new do |s|
-  s.name             = 'ScreenRecorder'
+  s.name             = 'VideoScreenRecorder'
   s.version          = '0.1.0'
   s.summary          = 'Record video of your screen and save the file locally.'
 
@@ -24,11 +24,11 @@ ScreenRecorder can record a video of your screen and save the output file locall
 - Easily create your "stop recording" button that although seen on screen, will not be recorded in the video
                        DESC
 
-  s.homepage         = 'https://github.com/bastienFalcou/ScreenRecorder'
+  s.homepage         = 'https://github.com/bastienFalcou/VideoScreenRecorder'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'bastien.falcou@hotmail.com' => 'bastien@fueled.com' }
-  s.source           = { :git => 'https://github.com/bastienFalcou/ScreenRecorder.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/bastienFalcou/VideoScreenRecorder.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'

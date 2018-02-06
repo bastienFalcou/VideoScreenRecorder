@@ -7,8 +7,8 @@
 
 import Foundation
 
-enum ScreenRecorderError: Error {
-	case alreadyRecodingVideo
-	case noVideoRecordInProgress
-	case videoCreationFailed
+enum VideoScreenRecorderError: Error {
+	case alreadyRecoding
+	case noRecordInProgress
+	case creationFailed
 }

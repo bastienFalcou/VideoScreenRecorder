@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		11982E4552CC5FA97EC67D89FD77C7EC /* Ios10ScreenRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D8253B0ADAFF9E40D2D7EFC7AC23A281 /* Ios10ScreenRecorder.swift */; };
 		2D552C3DD5B1E71A1A6B531B43FA90BF /* Pods-ScreenRecorder_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3406A9BE7A56474F675F4F644767FCCA /* Pods-ScreenRecorder_Example-dummy.m */; };
-		3218D78BD14EC905D7F482083299051C /* ScreenRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C314F578AB303526E1E19A9B2FF9D8E /* ScreenRecorder.swift */; };
+		3218D78BD14EC905D7F482083299051C /* VideoScreenRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C314F578AB303526E1E19A9B2FF9D8E /* VideoScreenRecorder.swift */; };
 		4D211F920492FB3A22DE5CEE45859CBF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		695B8128FE1D0BA402A1706761C70FB3 /* Pods-ScreenRecorder_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 30F766B3D98EC31C85A5C29E31D38092 /* Pods-ScreenRecorder_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6DA50CD1DEE43944DFEDC583D10FAD0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		6DF7168E6E2670579E93DDF2B97314C8 /* ScreenRecorderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5169F960DE09A7D0348BC5D122C861FD /* ScreenRecorderError.swift */; };
+		6DF7168E6E2670579E93DDF2B97314C8 /* VideoScreenRecorderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5169F960DE09A7D0348BC5D122C861FD /* VideoScreenRecorderError.swift */; };
 		71D30AD6F5C923989037031453177381 /* ScreenRecorder-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 575DA9CA0D4AE2C880A4BAC8E0D2BE78 /* ScreenRecorder-dummy.m */; };
 		9B5E913B107612841FC6409BCE62CE5F /* Ios11ScreenRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CC403395D9AB7AEAD05CC67F5D3B4D3 /* Ios11ScreenRecorder.swift */; };
 		9EF174DC259050DDD4B8457D62705E1C /* ScreenRecorder-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F9C8AA6E38C96413C9CF0B412E26CEC /* ScreenRecorder-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -38,11 +38,11 @@
 		30F766B3D98EC31C85A5C29E31D38092 /* Pods-ScreenRecorder_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-ScreenRecorder_Example-umbrella.h"; sourceTree = "<group>"; };
 		3406A9BE7A56474F675F4F644767FCCA /* Pods-ScreenRecorder_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-ScreenRecorder_Example-dummy.m"; sourceTree = "<group>"; };
 		43164B147FEB427DFC475F4F7E71A01A /* Pods-ScreenRecorder_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-ScreenRecorder_Example-resources.sh"; sourceTree = "<group>"; };
-		5169F960DE09A7D0348BC5D122C861FD /* ScreenRecorderError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScreenRecorderError.swift; path = ScreenRecorder/Classes/ScreenRecorderError.swift; sourceTree = "<group>"; };
+		5169F960DE09A7D0348BC5D122C861FD /* VideoScreenRecorderError.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoScreenRecorderError.swift; path = ScreenRecorder/Classes/VideoScreenRecorderError.swift; sourceTree = "<group>"; };
 		575DA9CA0D4AE2C880A4BAC8E0D2BE78 /* ScreenRecorder-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ScreenRecorder-dummy.m"; sourceTree = "<group>"; };
 		59982AB961F8DED9FF5648C4ED3A679E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6C314F578AB303526E1E19A9B2FF9D8E /* ScreenRecorder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScreenRecorder.swift; path = ScreenRecorder/Classes/ScreenRecorder.swift; sourceTree = "<group>"; };
+		6C314F578AB303526E1E19A9B2FF9D8E /* VideoScreenRecorder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = VideoScreenRecorder.swift; path = ScreenRecorder/Classes/VideoScreenRecorder.swift; sourceTree = "<group>"; };
 		6CC403395D9AB7AEAD05CC67F5D3B4D3 /* Ios11ScreenRecorder.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Ios11ScreenRecorder.swift; path = ScreenRecorder/Classes/Ios11ScreenRecorder.swift; sourceTree = "<group>"; };
 		75A3725BF761ECDE46DD9B593E946D48 /* Pods_ScreenRecorder_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ScreenRecorder_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BEF92ABF66350AFDC6B821E0F8818F1 /* Pods-ScreenRecorder_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-ScreenRecorder_Example.modulemap"; sourceTree = "<group>"; };
@@ -117,7 +117,8 @@
 				D8253B0ADAFF9E40D2D7EFC7AC23A281 /* Ios10ScreenRecorder.swift */,
 				6CC403395D9AB7AEAD05CC67F5D3B4D3 /* Ios11ScreenRecorder.swift */,
 				C8AA02A75A7DD9049E3751E70E52BBB4 /* ReplayFileCoordinator.swift */,
-				5169F960DE09A7D0348BC5D122C861FD /* ScreenRecorderError.swift */,
+				6C314F578AB303526E1E19A9B2FF9D8E /* VideoScreenRecorder.swift */,
+				5169F960DE09A7D0348BC5D122C861FD /* VideoScreenRecorderError.swift */,
 				2038A6AACDA36A41B45D036BA6241647 /* Support Files */,
 			);
 			name = ScreenRecorder;
@@ -277,8 +278,8 @@
 				9B5E913B107612841FC6409BCE62CE5F /* Ios11ScreenRecorder.swift in Sources */,
 				D77C82CD405F38F8DE49E38084D3C71A /* ReplayFileCoordinator.swift in Sources */,
 				71D30AD6F5C923989037031453177381 /* ScreenRecorder-dummy.m in Sources */,
-				3218D78BD14EC905D7F482083299051C /* ScreenRecorder.swift in Sources */,
-				6DF7168E6E2670579E93DDF2B97314C8 /* ScreenRecorderError.swift in Sources */,
+				3218D78BD14EC905D7F482083299051C /* VideoScreenRecorder.swift in Sources */,
+				6DF7168E6E2670579E93DDF2B97314C8 /* VideoScreenRecorderError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

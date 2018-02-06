@@ -8,8 +8,8 @@
 
 import Foundation
 
-public final class ScreenRecorder {
-	public static let shared = ScreenRecorder()
+public final class VideoScreenRecorder {
+	public static let shared = VideoScreenRecorder()
 
 	private var completionBlock: ((URL?, Error?) -> Void)?
 

@@ -24,7 +24,7 @@ internal final class Ios11ScreenRecorder {
 
 	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, startHandler: (() -> Void)? = nil, completionHandler: @escaping (URL?, Error?) -> Void) {
 		guard !self.isRecording else {
-			return completionHandler(nil, ScreenRecorderError.alreadyRecodingVideo)
+			return completionHandler(nil, VideoScreenRecorderError.alreadyRecoding)
 		}
 
 		self.currentVideoURL = URL(fileURLWithPath: ReplayFileCoordinator.shared.filePath(fileName))
@@ -88,7 +88,7 @@ internal final class Ios11ScreenRecorder {
 
 	func stopRecording(completion: ((URL?, Error?) -> Void)? = nil) {
 		guard self.isRecording else {
-			completion?(nil, ScreenRecorderError.noVideoRecordInProgress)
+			completion?(nil, VideoScreenRecorderError.noRecordInProgress)
 			return
 		}
 		RPScreenRecorder.shared().stopCapture { error in

@@ -28,7 +28,7 @@ final class ViewController: UIViewController {
 		// 'stopRecording' can be called with a callback notably returning the URL and error if needed.
 
 		self.stopButtonWindow.onStopClick = {
-			ScreenRecorder.shared.stopRecording()
+			VideoScreenRecorder.shared.stopRecording()
 			self.stopButtonWindow.hide()
 		}
 	}
@@ -45,7 +45,7 @@ final class ViewController: UIViewController {
 			// The 'completionHandler' callbak is called if there is an error (possibly immediately upon trying to start recording, e.g. if user
 			// denies the permission). It is called when the record completes successfully otherwise.
 
-			ScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.stopButtonWindow.overlayWindow], startHandler: { [weak self] in
+			VideoScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.stopButtonWindow.overlayWindow], startHandler: { [weak self] in
 				DispatchQueue.main.async {
 					self?.startTimer()
 				}
