@@ -12,7 +12,7 @@ import AVKit
 public final class ScreenRecorder {
 	public static let shared = ScreenRecorder()
 
-	private var completionBlock: ((Error?, URL?) -> Void)?
+	private var completionBlock: ((URL?, Error?) -> Void)?
 
 	public var isRecording: Bool {
 		if #available(iOS 11.0, *) {
@@ -22,7 +22,7 @@ public final class ScreenRecorder {
 		}
 	}
 
-	public func startRecording(with fileName: String, windowsToSkip: [UIWindow]? = nil, completion: @escaping (Error?, URL?) -> Void) {
+	public func startRecording(with fileName: String, windowsToSkip: [UIWindow]? = nil, completion: @escaping (URL?, Error?) -> Void) {
 		self.completionBlock = completion
 		if #available(iOS 11.0, *) {
 			Ios11ScreenRecorder.shared.startRecording(with: fileName, escapeWindows: windowsToSkip, recordingHandler: completion)
@@ -31,16 +31,16 @@ public final class ScreenRecorder {
 		}
 	}
 
-	public func stopRecording(handler: ((Error?, URL?) -> Void)? = nil) {
+	public func stopRecording(handler: ((URL?, Error?) -> Void)? = nil) {
 		if #available(iOS 11.0, *) {
-			Ios11ScreenRecorder.shared.stopRecording { error, url in
-				self.completionBlock?(error, url)
-				handler?(error, url)
+			Ios11ScreenRecorder.shared.stopRecording { url, error in
+				self.completionBlock?(url, error)
+				handler?(url, error)
 			}
 		} else {
-			Ios10ScreenRecorder.shared.stopRecording { error, url in
-				self.completionBlock?(error, url)
-				handler?(error, url)
+			Ios10ScreenRecorder.shared.stopRecording { url, error in
+				self.completionBlock?(url, error)
+				handler?(url, error)
 			}
 		}
 	}

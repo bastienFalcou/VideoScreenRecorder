@@ -21,10 +21,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your device to start recording..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MWq-lA-6sg">
-                                <rect key="frame" x="10" y="79" width="355" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shake your device to start recording..." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="MWq-lA-6sg">
+                                <rect key="frame" x="38" y="79" width="299" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tJh-ZF-sTn">
@@ -57,9 +57,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="MWq-lA-6sg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="53a-zW-pMj"/>
+                            <constraint firstItem="MWq-lA-6sg" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="15" id="53a-zW-pMj"/>
                             <constraint firstItem="tJh-ZF-sTn" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" id="C8W-Be-jcy"/>
-                            <constraint firstAttribute="trailing" secondItem="MWq-lA-6sg" secondAttribute="trailing" constant="10" id="hHs-5f-dxl"/>
+                            <constraint firstItem="MWq-lA-6sg" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="HE7-ur-7Pr"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="MWq-lA-6sg" secondAttribute="trailing" constant="15" id="hHs-5f-dxl"/>
                             <constraint firstItem="MWq-lA-6sg" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="15" id="itI-fE-7Db"/>
                             <constraint firstItem="tJh-ZF-sTn" firstAttribute="top" secondItem="MWq-lA-6sg" secondAttribute="bottom" constant="21" id="l8A-ug-EnQ"/>
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="tJh-ZF-sTn" secondAttribute="bottom" id="lcN-2C-rQW"/>
