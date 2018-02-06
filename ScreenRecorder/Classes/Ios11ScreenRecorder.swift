@@ -22,9 +22,9 @@ internal final class Ios11ScreenRecorder {
 	fileprivate var assetWriter: AVAssetWriter!
 	fileprivate var videoInput: AVAssetWriterInput!
 
-	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, recordingHandler: @escaping (Error?, URL?) -> Void) {
+	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, recordingHandler: @escaping (URL?, Error?) -> Void) {
 		guard !self.isRecording else {
-			return recordingHandler(ScreenRecorderError.alreadyRecodingVideo, nil)
+			return recordingHandler(nil, ScreenRecorderError.alreadyRecodingVideo)
 		}
 
 		self.currentVideoURL = URL(fileURLWithPath: ReplayFileCoordinator.shared.filePath(fileName))
@@ -44,7 +44,7 @@ internal final class Ios11ScreenRecorder {
 
 			if let error = error {
 				DispatchQueue.main.async {
-					recordingHandler(error, nil)
+					recordingHandler(nil, error)
 				}
 				return
 			}
@@ -71,20 +71,20 @@ internal final class Ios11ScreenRecorder {
 
 			if let error = error {
 				DispatchQueue.main.async {
-					recordingHandler(error, nil)
+					recordingHandler(nil, error)
 				}
 			}
 		})
 	}
 
-	func stopRecording(completion: ((Error?, URL?) -> Void)? = nil) {
+	func stopRecording(completion: ((URL?, Error?) -> Void)? = nil) {
 		guard self.isRecording else {
-			completion?(ScreenRecorderError.noVideoRecordInProgress, nil)
+			completion?(nil, ScreenRecorderError.noVideoRecordInProgress)
 			return
 		}
 		RPScreenRecorder.shared().stopCapture { error in
 			self.isRecording = false
-			completion?(error, self.currentVideoURL)
+			completion?(self.currentVideoURL, error)
 			self.assetWriter.finishWriting {
 				print(ReplayFileCoordinator.shared.allReplays)
 			}

@@ -40,9 +40,9 @@ internal final class Ios10ScreenRecorder {
 
 	// MARK: - Public
 
-	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, recordingHandler: @escaping (Error?, URL?) -> Void) {
+	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, recordingHandler: @escaping (URL?, Error?) -> Void) {
 		guard !self.isRecording else {
-			return recordingHandler(ScreenRecorderError.alreadyRecodingVideo, nil)
+			return recordingHandler(nil, ScreenRecorderError.alreadyRecodingVideo)
 		}
 		self.setupWriter(with: fileName, escapeWindows: escapeWindows, recordingHandler: recordingHandler)
 		self.isRecording = self.videoWriter!.status == .writing
@@ -50,9 +50,9 @@ internal final class Ios10ScreenRecorder {
 		self.displayLink?.add(to: RunLoop.main, forMode: .commonModes)
 	}
 
-	func stopRecording(completion: ((Error?, URL?) -> Void)? = nil) {
+	func stopRecording(completion: ((URL?, Error?) -> Void)? = nil) {
 		guard self.isRecording else {
-			completion?(ScreenRecorderError.noVideoRecordInProgress, nil)
+			completion?(nil, ScreenRecorderError.noVideoRecordInProgress)
 			return
 		}
 		self.isRecording = false
@@ -74,7 +74,7 @@ internal final class Ios10ScreenRecorder {
 		}
 	}
 
-	fileprivate func setupWriter(with fileName: String, escapeWindows: [UIWindow]? = nil, recordingHandler: @escaping (Error?, URL?) -> Void) {
+	fileprivate func setupWriter(with fileName: String, escapeWindows: [UIWindow]? = nil, recordingHandler: @escaping (URL?, Error?) -> Void) {
 		let bufferAttributes: [CFString: Any] = [kCVPixelBufferPixelFormatTypeKey: kCVPixelFormatType_32BGRA,
 																						 kCVPixelBufferCGBitmapContextCompatibilityKey: true,
 																						 kCVPixelBufferWidthKey: self.viewSize.width * self.scale,
@@ -91,7 +91,7 @@ internal final class Ios10ScreenRecorder {
 		do {
 			try self.videoWriter = AVAssetWriter(url: self.videoURL, fileType: AVFileType.mov)
 		} catch {
-			return recordingHandler(ScreenRecorderError.videoCreationFailed, nil)
+			return recordingHandler(nil, ScreenRecorderError.videoCreationFailed)
 		}
 
 		let pixelNumber = self.viewSize.width * self.viewSize.height * self.scale
@@ -196,14 +196,14 @@ internal final class Ios10ScreenRecorder {
 		return context
 	}
 
-	fileprivate func completeRecordingSession(completion: ((Error?, URL?) -> Void)? = nil) {
+	fileprivate func completeRecordingSession(completion: ((URL?, Error?) -> Void)? = nil) {
 		self.renderQueue.async {
 			self.appendPixelBufferQueue.async {
 				self.videoWriterInput.markAsFinished()
 				self.videoWriter.finishWriting {
 					self.cleanup()
 					DispatchQueue.main.async {
-						completion?(nil, self.videoURL)
+						completion?(self.videoURL, nil)
 					}
 				}
 			}

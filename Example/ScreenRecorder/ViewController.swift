@@ -43,7 +43,7 @@ final class ViewController: UIViewController {
 			// ReplayKit, if prior version will take a batch of screenshots and use them to encode the video.
 			// The callback is called as soon as there is an error (possibly immerdiately after start recording attempt), or when the record
 			// completes successfully otherwise.
-			ScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.stopButtonWindow.overlayWindow]) { [weak self] error, url in
+			ScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.stopButtonWindow.overlayWindow]) { [weak self] url, error in
 				DispatchQueue.main.async {
 					if let error = error {
 						self?.present(error: error)

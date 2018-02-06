@@ -90,6 +90,12 @@ If running on a version of iOS prior to **iOS 11**, the `ScreenRecorder` facade 
 
 This implementation is based on alskipp's [GitHub repository](https://github.com/alskipp/ASScreenRecorder); see there for more details.
 
+## Add Unrecorded Views
+
+It is likely that you will want a "Stop" button that **will be seen on screen** by the user **while recording**, but that **will not be seen on the video** file generated. This is achieved by creating a new `UIWindow` and making it key window.
+
+This window will be passed as parameter of `startRecording(with:windowsToSkip:completion:)` and be skipped while recording the screen. See how to implement it in the **ScreenRecorder Example** application, file `StopVideoRecordingWindow` 👌
+
 ## License
 
 ScreenRecorder is available under the MIT license. See the LICENSE file for more info.
