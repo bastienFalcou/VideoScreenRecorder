@@ -22,9 +22,9 @@ internal final class Ios11ScreenRecorder {
 	fileprivate var assetWriter: AVAssetWriter!
 	fileprivate var videoInput: AVAssetWriterInput!
 
-	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, recordingHandler: @escaping (URL?, Error?) -> Void) {
+	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, startHandler: (() -> Void)? = nil, completionHandler: @escaping (URL?, Error?) -> Void) {
 		guard !self.isRecording else {
-			return recordingHandler(nil, ScreenRecorderError.alreadyRecodingVideo)
+			return completionHandler(nil, ScreenRecorderError.alreadyRecodingVideo)
 		}
 
 		self.currentVideoURL = URL(fileURLWithPath: ReplayFileCoordinator.shared.filePath(fileName))
@@ -44,7 +44,7 @@ internal final class Ios11ScreenRecorder {
 
 			if let error = error {
 				DispatchQueue.main.async {
-					recordingHandler(nil, error)
+					completionHandler(nil, error)
 				}
 				return
 			}
@@ -71,8 +71,10 @@ internal final class Ios11ScreenRecorder {
 
 			if let error = error {
 				DispatchQueue.main.async {
-					recordingHandler(nil, error)
+					completionHandler(nil, error)
 				}
+			} else {
+				startHandler?()
 			}
 		})
 	}

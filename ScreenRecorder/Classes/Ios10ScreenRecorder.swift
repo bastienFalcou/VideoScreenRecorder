@@ -40,11 +40,11 @@ internal final class Ios10ScreenRecorder {
 
 	// MARK: - Public
 
-	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, recordingHandler: @escaping (URL?, Error?) -> Void) {
+	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, startHandler: (() -> Void)? = nil, completionHandler: @escaping (URL?, Error?) -> Void) {
 		guard !self.isRecording else {
-			return recordingHandler(nil, ScreenRecorderError.alreadyRecodingVideo)
+			return completionHandler(nil, ScreenRecorderError.alreadyRecodingVideo)
 		}
-		self.setupWriter(with: fileName, escapeWindows: escapeWindows, recordingHandler: recordingHandler)
+		self.setupWriter(with: fileName, escapeWindows: escapeWindows, startHandler: startHandler, completionHandler: completionHandler)
 		self.isRecording = self.videoWriter!.status == .writing
 		self.displayLink = CADisplayLink(target: self, selector: #selector(writeVideoFrame))
 		self.displayLink?.add(to: RunLoop.main, forMode: .commonModes)
@@ -74,7 +74,7 @@ internal final class Ios10ScreenRecorder {
 		}
 	}
 
-	fileprivate func setupWriter(with fileName: String, escapeWindows: [UIWindow]? = nil, recordingHandler: @escaping (URL?, Error?) -> Void) {
+	fileprivate func setupWriter(with fileName: String, escapeWindows: [UIWindow]? = nil, startHandler: (() -> Void)? = nil, completionHandler: @escaping (URL?, Error?) -> Void) {
 		let bufferAttributes: [CFString: Any] = [kCVPixelBufferPixelFormatTypeKey: kCVPixelFormatType_32BGRA,
 																						 kCVPixelBufferCGBitmapContextCompatibilityKey: true,
 																						 kCVPixelBufferWidthKey: self.viewSize.width * self.scale,
@@ -91,7 +91,7 @@ internal final class Ios10ScreenRecorder {
 		do {
 			try self.videoWriter = AVAssetWriter(url: self.videoURL, fileType: AVFileType.mov)
 		} catch {
-			return recordingHandler(nil, ScreenRecorderError.videoCreationFailed)
+			return completionHandler(nil, ScreenRecorderError.videoCreationFailed)
 		}
 
 		let pixelNumber = self.viewSize.width * self.viewSize.height * self.scale
@@ -111,6 +111,8 @@ internal final class Ios10ScreenRecorder {
 		self.videoWriter.add(self.videoWriterInput)
 		self.videoWriter.startWriting()
 		self.videoWriter.startSession(atSourceTime: CMTime(seconds: 0.0, preferredTimescale: 1000))
+
+		startHandler?()
 	}
 
 	fileprivate var videoTransformForDeviceOrientation: CGAffineTransform {
@@ -214,7 +216,7 @@ internal final class Ios10ScreenRecorder {
 		self.avAdaptor = nil
 		self.videoWriterInput = nil
 		self.videoWriter = nil
-		self.firstTimeStamp = 0.0
+		self.firstTimeStamp = nil
 		self.outputBufferPoolAuxAttributes.removeAll()
 		self.escapeWindows.removeAll()
 	}
