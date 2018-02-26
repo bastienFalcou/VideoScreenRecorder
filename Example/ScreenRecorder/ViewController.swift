@@ -11,13 +11,13 @@ import AVKit
 import ScreenRecorder
 
 final class ViewController: UIViewController {
-	@IBOutlet fileprivate var tableView: UITableView!
-	@IBOutlet fileprivate var descriptionLabel: UILabel!
+	@IBOutlet fileprivate(set) var tableView: UITableView!
+	@IBOutlet fileprivate(set) var descriptionLabel: UILabel!
 
 	fileprivate let stopButtonWindow = StopVideoRecordingWindow()
 
 	fileprivate var timer: Timer?
-	fileprivate let timerTimeInterval: TimeInterval = 0.1
+	let timerTimeInterval: TimeInterval = 0.1
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -46,7 +46,9 @@ final class ViewController: UIViewController {
 			// denies the permission). It is called when the record completes successfully otherwise.
 
 			ScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.stopButtonWindow.overlayWindow], startHandler: { [weak self] in
-				self?.startTimer()
+				DispatchQueue.main.async {
+					self?.startTimer()
+				}
 			}, completionHandler: { [weak self] url, error in
 				DispatchQueue.main.async {
 					if let error = error {
@@ -72,13 +74,21 @@ final class ViewController: UIViewController {
 	}
 
 	fileprivate func startTimer() {
-		self.timer = Timer.scheduledTimer(timeInterval: self.timerTimeInterval, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-		self.stopButtonWindow.show()
-	}
+		class WeakTarget: NSObject {
+			weak var viewController: ViewController!
 
-	@objc fileprivate func updateTimer() {
-		let seconds = TimeInterval(self.descriptionLabel.text ?? "0.0") ?? 0.0
-		self.descriptionLabel.text = "\(seconds + self.timerTimeInterval)"
+			init(viewController: ViewController) {
+				self.viewController = viewController
+			}
+
+			@objc func updateTimer() {
+				let seconds = TimeInterval(self.viewController.descriptionLabel.text ?? "0.0") ?? 0.0
+				self.viewController.descriptionLabel.text = "\(seconds + self.viewController.timerTimeInterval)"
+			}
+		}
+		let weakTarget = WeakTarget(viewController: self)
+		self.timer = Timer.scheduledTimer(timeInterval: self.timerTimeInterval, target: weakTarget, selector: #selector(WeakTarget.updateTimer), userInfo: nil, repeats: true)
+		self.stopButtonWindow.show()
 	}
 }
 

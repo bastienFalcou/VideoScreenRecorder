@@ -13,6 +13,8 @@ internal final class StopVideoRecordingWindow {
 	fileprivate(set) var overlayWindow = UIWindow()
 	fileprivate let stopButton = UIButton()
 
+	fileprivate let pulseAnimationUniqueIdentifier = "com.ScreenRecorder.stop.transform.scale"
+
 	var onStopClick: (() -> Void)?
 
 	init() {
@@ -48,7 +50,7 @@ internal final class StopVideoRecordingWindow {
 		pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		pulseAnimation.autoreverses = true
 		pulseAnimation.repeatCount = .greatestFiniteMagnitude
-		self.overlayWindow.layer.add(pulseAnimation, forKey: "com.ScreenRecorder.stop.transform.scale")
+		self.overlayWindow.layer.add(pulseAnimation, forKey: self.pulseAnimationUniqueIdentifier)
 	}
 
 	func show() {
@@ -69,6 +71,8 @@ internal final class StopVideoRecordingWindow {
 
 	func hide(completion: (() -> Void)? = nil) {
 		DispatchQueue.main.async {
+			self.overlayWindow.layer.removeAnimation(forKey: self.pulseAnimationUniqueIdentifier)
+
 			UIView.animate(withDuration: 0.15, animations: {
 				self.overlayWindow.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
 				self.overlayWindow.alpha = 0.0
