@@ -11,13 +11,13 @@ import AVKit
 import ScreenRecorder
 
 final class ViewController: UIViewController {
-	@IBOutlet fileprivate var tableView: UITableView!
-	@IBOutlet fileprivate var descriptionLabel: UILabel!
+	@IBOutlet fileprivate(set) var tableView: UITableView!
+	@IBOutlet fileprivate(set) var descriptionLabel: UILabel!
 
 	fileprivate let stopButtonWindow = StopVideoRecordingWindow()
 
 	fileprivate var timer: Timer?
-	fileprivate let timerTimeInterval: TimeInterval = 0.1
+	let timerTimeInterval: TimeInterval = 0.1
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -26,24 +26,30 @@ final class ViewController: UIViewController {
 
 		// On stop button tapped, the stop button window is hidden and we can stop recording the video.
 		// 'stopRecording' can be called with a callback notably returning the URL and error if needed.
+
 		self.stopButtonWindow.onStopClick = {
-			self.stopButtonWindow.hide {
-				ScreenRecorder.shared.stopRecording()
-			}
+			ScreenRecorder.shared.stopRecording()
+			self.stopButtonWindow.hide()
 		}
 	}
 
 	override func motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
 		if let event = event, event.subtype == .motionShake {
-			// Show stop button overlay window added to hierarchy, will be seen throughout the application until hidden
-			self.stopButtonWindow.show()
-			self.timer = Timer.scheduledTimer(timeInterval: self.timerTimeInterval, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
 
 			// Start recording, the framework will internally choose the most appropriate method to record the video. If iOS 11+ will relly on
 			// ReplayKit, if prior version will take a batch of screenshots and use them to encode the video.
-			// The callback is called as soon as there is an error (possibly immerdiately after start recording attempt), or when the record
-			// completes successfully otherwise.
-			ScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.stopButtonWindow.overlayWindow]) { [weak self] url, error in
+			//
+			// The 'startHandler' callback is called as soon as the Framework has successfully started to record video; for instance right after
+			// the user has granted the permission. It may never be called if recording doesn't start successfully.
+			//
+			// The 'completionHandler' callbak is called if there is an error (possibly immediately upon trying to start recording, e.g. if user
+			// denies the permission). It is called when the record completes successfully otherwise.
+
+			ScreenRecorder.shared.startRecording(with: UUID().uuidString, windowsToSkip: [self.stopButtonWindow.overlayWindow], startHandler: { [weak self] in
+				DispatchQueue.main.async {
+					self?.startTimer()
+				}
+			}, completionHandler: { [weak self] url, error in
 				DispatchQueue.main.async {
 					if let error = error {
 						self?.present(error: error)
@@ -52,8 +58,12 @@ final class ViewController: UIViewController {
 					self?.tableView.reloadData()
 					self?.descriptionLabel.text = "Shake your device to start recording..."
 				}
-			}
+			})
 		}
+	}
+
+	deinit {
+		self.timer?.invalidate()
 	}
 
 	fileprivate func present(error: Error) {
@@ -63,13 +73,22 @@ final class ViewController: UIViewController {
 		self.present(alertController, animated: true, completion: nil)
 	}
 
-	@objc fileprivate func updateTimer() {
-		let seconds = TimeInterval(self.descriptionLabel.text ?? "0.0") ?? 0.0
-		self.descriptionLabel.text = "\(seconds + self.timerTimeInterval)"
-	}
+	fileprivate func startTimer() {
+		class WeakTarget: NSObject {
+			weak var viewController: ViewController!
 
-	deinit {
-		self.timer?.invalidate()
+			init(viewController: ViewController) {
+				self.viewController = viewController
+			}
+
+			@objc func updateTimer() {
+				let seconds = TimeInterval(self.viewController.descriptionLabel.text ?? "0.0") ?? 0.0
+				self.viewController.descriptionLabel.text = "\(seconds + self.viewController.timerTimeInterval)"
+			}
+		}
+		let weakTarget = WeakTarget(viewController: self)
+		self.timer = Timer.scheduledTimer(timeInterval: self.timerTimeInterval, target: weakTarget, selector: #selector(WeakTarget.updateTimer), userInfo: nil, repeats: true)
+		self.stopButtonWindow.show()
 	}
 }
 

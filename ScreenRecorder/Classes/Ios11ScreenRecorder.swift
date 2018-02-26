@@ -22,17 +22,24 @@ internal final class Ios11ScreenRecorder {
 	fileprivate var assetWriter: AVAssetWriter!
 	fileprivate var videoInput: AVAssetWriterInput!
 
-	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, recordingHandler: @escaping (URL?, Error?) -> Void) {
+	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, startHandler: (() -> Void)? = nil, completionHandler: @escaping (URL?, Error?) -> Void) {
 		guard !self.isRecording else {
-			return recordingHandler(nil, ScreenRecorderError.alreadyRecodingVideo)
+			return completionHandler(nil, ScreenRecorderError.alreadyRecodingVideo)
 		}
 
 		self.currentVideoURL = URL(fileURLWithPath: ReplayFileCoordinator.shared.filePath(fileName))
 		self.assetWriter = try! AVAssetWriter(outputURL: self.currentVideoURL!, fileType: AVFileType.mp4)
+
+		// The size of the output video has to be a multiple of 16. A 2 pixels green line is going to be seen at the bottom and
+		// on the right size of the video otherwise. Following two lines ensure this is respected.
+		// Source: https://stackoverflow.com/questions/22883525
+		let videoWidth = floor(UIScreen.main.bounds.size.width / 16) * 16
+		let videoHeight = floor(UIScreen.main.bounds.size.height / 16) * 16
+
 		let videoOutputSettings: [String: Any] = [
 			AVVideoCodecKey: AVVideoCodecType.h264,
-			AVVideoWidthKey: UIScreen.main.bounds.size.width,
-			AVVideoHeightKey: UIScreen.main.bounds.size.height
+			AVVideoWidthKey: videoWidth,
+			AVVideoHeightKey: videoHeight
 		]
 
 		self.videoInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoOutputSettings)
@@ -44,7 +51,7 @@ internal final class Ios11ScreenRecorder {
 
 			if let error = error {
 				DispatchQueue.main.async {
-					recordingHandler(nil, error)
+					completionHandler(nil, error)
 				}
 				return
 			}
@@ -71,8 +78,10 @@ internal final class Ios11ScreenRecorder {
 
 			if let error = error {
 				DispatchQueue.main.async {
-					recordingHandler(nil, error)
+					completionHandler(nil, error)
 				}
+			} else {
+				startHandler?()
 			}
 		})
 	}

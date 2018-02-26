@@ -21,8 +21,7 @@ ScreenRecorder can record a video of your screen and save the output file locall
 
 ## Installation
 
-ScreenRecorder is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+ScreenRecorder is available through [CocoaPods](http://cocoapods.org). To install it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'ScreenRecorder'
@@ -34,20 +33,26 @@ Check out the demo app for an example. It contains the following demos: **record
 
 ### Start Recording
 
-The `ScreenRecorder` singleton manager is the **Framework's central object**. It will handle recording, making sure there are not two videos being recorded simultaneously (returns an error otherwise). Recording a video can be started as follows:
+The `ScreenRecorder` singleton manager is the **Framework's central object**. It handles start/stop recording and makes sure that there are never two videos being recorded simultaneously (returns an error otherwise). Recording a video can be started as follows:
 
 ```swift
-ScreenRecorder.shared.startRecording(with: "my_file_name", windowsToSkip: nil) { url, error in
+ScreenRecorder.shared.startRecording(with: "my_file_name", windowsToSkip: nil, startHandler: { in
+	DispatchQueue.main.async {
+		// started to record
+	}
+}, completionHandler: { url, error in
 	DispatchQueue.main.async {
 		if let error = error {
 			// handle error
 		}
-		print(url.absoluteString)
+		// use url
 	}
 }
 ```
 
-The completion **can be called immediately** if an error occurs while starting to record. It might also be **called as soon as there is an error returned**. Finally, it will also be **called when the user stops recording**, passing the URL of the saved file as argument.
+The `startHandler` callback is called as soon as the Framework has **successfully started to record video**; for instance right after the user has granted the permission. It may never be called if recording doesn't start successfully.
+
+The `completionHandler` callbak is called if there is an **error** (possibly immediately upon trying to start recording, e.g. if user denies the permission). It is called when the record **completes successfully otherwise**.
 
 > **Note:** it is possible to pass an array of `UIWindow` objects to the `windowsToSkip` parameter. Every object included in this array will not be recorded in the video. This notably allows to create a "Stop Recording" button that only the user will see on screen at the moment of recording.
 
@@ -61,18 +66,16 @@ ScreenRecorder.shared.stopRecording { url, error in
 		if let error = error {
 			// handle error
 		}
-		print(url.absoluteString)
+		// use url
 	}
 }
 ```
-
-The completion will be called following the same description as in `startRecording`.
 
 The **URL** of the generated video will look as follow: `file:///var/mobile/Containers/Data/Application/{ApplicationUUID}/Documents/Replays/my_file_name.mp4`
 
 ## How does it work?
 
-The `ScreenRecorder` object is a **Facade** that will pick the most appropriate / advanced approach to handle **screen video recording** based on your **iOS version**.
+The `ScreenRecorder` object is a **Facade** that will pick the most appropriate / advanced technology to handle **screen video recording** based on your **iOS version**:
 
 #### iOS 11+
 

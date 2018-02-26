@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import AVKit
 
 public final class ScreenRecorder {
 	public static let shared = ScreenRecorder()
@@ -22,12 +21,12 @@ public final class ScreenRecorder {
 		}
 	}
 
-	public func startRecording(with fileName: String, windowsToSkip: [UIWindow]? = nil, completion: @escaping (URL?, Error?) -> Void) {
-		self.completionBlock = completion
+	public func startRecording(with fileName: String, windowsToSkip: [UIWindow]? = nil, startHandler: (() -> Void)? = nil, completionHandler: @escaping (URL?, Error?) -> Void) {
+		self.completionBlock = completionHandler
 		if #available(iOS 11.0, *) {
-			Ios11ScreenRecorder.shared.startRecording(with: fileName, escapeWindows: windowsToSkip, recordingHandler: completion)
+			Ios11ScreenRecorder.shared.startRecording(with: fileName, escapeWindows: windowsToSkip, startHandler: startHandler, completionHandler: completionHandler)
 		} else {
-			Ios10ScreenRecorder.shared.startRecording(with: fileName, escapeWindows: windowsToSkip, recordingHandler: completion)
+			Ios10ScreenRecorder.shared.startRecording(with: fileName, escapeWindows: windowsToSkip, startHandler: startHandler, completionHandler: completionHandler)
 		}
 	}
 
