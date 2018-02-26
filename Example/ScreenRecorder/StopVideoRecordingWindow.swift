@@ -45,7 +45,7 @@ internal final class StopVideoRecordingWindow {
 	private func pulse() {
 		let pulseAnimation = CABasicAnimation(keyPath: "transform.scale")
 		pulseAnimation.duration = 0.5
-		pulseAnimation.fromValue = 1
+		pulseAnimation.fromValue = 1.0
 		pulseAnimation.toValue = 0.8
 		pulseAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
 		pulseAnimation.autoreverses = true

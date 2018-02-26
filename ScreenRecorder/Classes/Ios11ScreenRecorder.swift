@@ -29,10 +29,17 @@ internal final class Ios11ScreenRecorder {
 
 		self.currentVideoURL = URL(fileURLWithPath: ReplayFileCoordinator.shared.filePath(fileName))
 		self.assetWriter = try! AVAssetWriter(outputURL: self.currentVideoURL!, fileType: AVFileType.mp4)
+
+		// The size of the output video has to be a multiple of 16. A 2 pixels green line is going to be seen at the bottom and
+		// on the right size of the video otherwise. Following two lines ensure this is respected.
+		// Source: https://stackoverflow.com/questions/22883525
+		let videoWidth = floor(UIScreen.main.bounds.size.width / 16) * 16
+		let videoHeight = floor(UIScreen.main.bounds.size.height / 16) * 16
+
 		let videoOutputSettings: [String: Any] = [
 			AVVideoCodecKey: AVVideoCodecType.h264,
-			AVVideoWidthKey: UIScreen.main.bounds.size.width,
-			AVVideoHeightKey: UIScreen.main.bounds.size.height
+			AVVideoWidthKey: videoWidth,
+			AVVideoHeightKey: videoHeight
 		]
 
 		self.videoInput = AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoOutputSettings)

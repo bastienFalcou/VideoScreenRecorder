@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import AVKit
 
 public final class ScreenRecorder {
 	public static let shared = ScreenRecorder()
