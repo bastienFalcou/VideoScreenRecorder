@@ -1,6 +1,6 @@
 # VideoScreenRecorder
 
-[![CI Status](http://img.shields.io/travis/bastien.falcou@hotmail.com/VideoScreenRecorder.svg?style=flat)](https://travis-ci.org/bastien.falcou@hotmail.com/VideoScreenRecorder)
+[![Build Status](https://api.travis-ci.org/bastienFalcou/VideoScreenRecorder.svg?branch=master)](https://travis-ci.org/bastienFalcou/VideoScreenRecorder)
 [![Version](https://img.shields.io/cocoapods/v/VideoScreenRecorder.svg?style=flat)](http://cocoapods.org/pods/VideoScreenRecorder)
 ![Swift 4.0.x](https://img.shields.io/badge/Swift-4.0.x-orange.svg)
 [![License](https://img.shields.io/cocoapods/l/VideoScreenRecorder.svg?style=flat)](http://cocoapods.org/pods/VideoScreenRecorder)
@@ -37,7 +37,7 @@ The `VideoScreenRecorder` singleton manager is the **Framework's central object*
 
 ```swift
 VideoScreenRecorder.shared.startRecording(with: "my_file_name", windowsToSkip: nil) { url, error in
-=	DispatchQueue.main.async {
+	DispatchQueue.main.async {
 		if let error = error {
 			// handle error
 		}
