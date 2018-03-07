@@ -42,7 +42,7 @@ internal final class Ios10ScreenRecorder {
 
 	func startRecording(with fileName: String, escapeWindows: [UIWindow]? = nil, startHandler: (() -> Void)? = nil, completionHandler: @escaping (URL?, Error?) -> Void) {
 		guard !self.isRecording else {
-			return completionHandler(nil, ScreenRecorderError.alreadyRecodingVideo)
+			return completionHandler(nil, VideoScreenRecorderError.alreadyRecoding)
 		}
 		self.setupWriter(with: fileName, escapeWindows: escapeWindows, startHandler: startHandler, completionHandler: completionHandler)
 		self.isRecording = self.videoWriter!.status == .writing
@@ -52,7 +52,7 @@ internal final class Ios10ScreenRecorder {
 
 	func stopRecording(completion: ((URL?, Error?) -> Void)? = nil) {
 		guard self.isRecording else {
-			completion?(nil, ScreenRecorderError.noVideoRecordInProgress)
+			completion?(nil, VideoScreenRecorderError.noRecordInProgress)
 			return
 		}
 		self.isRecording = false
@@ -91,7 +91,7 @@ internal final class Ios10ScreenRecorder {
 		do {
 			try self.videoWriter = AVAssetWriter(url: self.videoURL, fileType: AVFileType.mov)
 		} catch {
-			return completionHandler(nil, ScreenRecorderError.videoCreationFailed)
+			return completionHandler(nil, VideoScreenRecorderError.creationFailed)
 		}
 
 		let pixelNumber = self.viewSize.width * self.viewSize.height * self.scale
